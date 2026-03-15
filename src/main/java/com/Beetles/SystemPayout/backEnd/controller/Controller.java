@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@org.springframework.stereotype.Controller
+@RestController
 @RequestMapping("/users")
 
 public class Controller {
@@ -26,8 +26,8 @@ public class Controller {
     public ResponseEntity<User> saveUsers(@RequestBody User user){
         try{
             User savedUser = service.saveUser(user);
-            return new ResponseEntity(savedUser, HttpStatus.CREATED);
-        } catch (SaveUserException e) {
+            return new ResponseEntity<>(savedUser, HttpStatus.CREATED);
+        } catch (RuntimeException e) {
             throw new SaveUserException(e.getMessage());
         }
     }
@@ -37,7 +37,7 @@ public class Controller {
         try{
             List<User> user = service.showUsers();
             return ResponseEntity.ok(user);
-    } catch (ShowUserError e) {
+    } catch (RuntimeException e) {
             throw new ShowUserError(e.getMessage());
         }
     }
@@ -47,28 +47,28 @@ public class Controller {
         try{
             User user = service.showUserById(id);
             return ResponseEntity.ok(user);
-        } catch (ShowUserError e) {
+        } catch (RuntimeException e) {
             throw new ShowUserError(e.getMessage());
         }
 
     }
 
     @PutMapping("/updateUser/{id}")
-    public ResponseEntity<User> updateUser(@RequestBody Long id, User user){
+    public ResponseEntity<User> updateUser(@PathVariable Long id, @RequestBody User user){
         try{
             User userUp = service.updateUser(id, user);
-            return new ResponseEntity(userUp, HttpStatus.OK);
-        } catch (UpdateUserError e) {
+            return new ResponseEntity<>(userUp, HttpStatus.OK);
+        } catch (RuntimeException e) {
             throw new UpdateUserError(e.getMessage());
         }
     }
 
     @DeleteMapping("/deleteuser/{id}")
-    public void deleteUser(Long id){
+    public ResponseEntity<Void> deleteUser(@PathVariable Long id){
         try{
             service.deleteUserById(id);
-            new ResponseEntity(HttpStatus.GONE);
-    } catch (DeleteUserError e) {
+            return new ResponseEntity<>(HttpStatus.GONE);
+    } catch (RuntimeException e) {
             throw new DeleteUserError(e.getMessage());
         }
     }
