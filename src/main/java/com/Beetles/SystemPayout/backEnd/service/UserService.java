@@ -1,7 +1,8 @@
 package com.Beetles.SystemPayout.backEnd.service;
 
-import com.Beetles.SystemPayout.backEnd.entity.User;
-import com.Beetles.SystemPayout.backEnd.repository.Repository;
+import com.Beetles.SystemPayout.backEnd.domain.User;
+import com.Beetles.SystemPayout.backEnd.repository.UserRepository;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
 
@@ -10,9 +11,9 @@ import java.util.List;
 
 public class UserService {
     // Isso é uma injeção de dependencia, estou injetando o Repositorio para ser usado nessa classe
-    private final Repository repository;
+    private final UserRepository repository;
 
-    public UserService(Repository repository) {
+    public UserService(UserRepository repository) {
         this.repository = repository;
     }
 
@@ -24,7 +25,7 @@ public class UserService {
 
     // Já esse metodo é para ver um usuário pelo Id dele
 
-    public User showUserById(/* Aqui é onde colocamos os parametros do metodo */ Long id) {
+    public User showUserById(/* Aqui é onde colocamos os parametros do metodo */ Integer id) {
         return repository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Id not exist"));
     }
@@ -37,7 +38,7 @@ public class UserService {
 
     // Esse é para deletar um usuário do sistema pelo Id
 
-    public void deleteUserById(Long id) {
+    public void deleteUserById(Integer id) {
         if (!repository.existsById(id)) {
         throw new RuntimeException("Não foi possível deletar o Usuário: Id invalido");
         }
@@ -45,13 +46,17 @@ public class UserService {
 }
     // Esse é para atualizar os dados do usuário
 
-    public User updateUser(Long id, User user){
+    public User updateUser(Integer id, User user){
         User userExist = repository.findById(id)
                 .orElseThrow(()-> new RuntimeException("Id Not Exist"));
-            if(userExist.getName() != null){
-            userExist.setName(user.getName());}
-            if (userExist.getEmail() != null){
-            userExist.setEmail(user.getEmail());}
+            if(userExist.getNome() != null){
+            userExist.setNome(user.getNome());}
+            if (userExist.getTelefone() != null){
+            userExist.setTelefone(user.getTelefone());}
+            if (userExist.getStatus() != null){
+            userExist.setStatus(user.getStatus());}
+            if (userExist.getPlanoescolhidoId() != null){
+            userExist.setPlanoEscolhido(user.getPlanoescolhidoId());}
             return repository.save(userExist);
     }
 }

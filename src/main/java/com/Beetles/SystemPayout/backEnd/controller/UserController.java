@@ -1,6 +1,6 @@
 package com.Beetles.SystemPayout.backEnd.controller;
 
-import com.Beetles.SystemPayout.backEnd.entity.User;
+import com.Beetles.SystemPayout.backEnd.domain.User;
 import com.Beetles.SystemPayout.backEnd.service.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -31,19 +31,19 @@ public class UserController {
     }
 
     @GetMapping("/getbyid/{id}")
-    public ResponseEntity<User> showIdUser(@PathVariable Long id){
+    public ResponseEntity<User> showIdUser(@PathVariable Integer id){
             User user = userService.showUserById(id);
             return ResponseEntity.ok(user);
     }
 
     @PutMapping("/update/{id}")
-    public ResponseEntity<User> updateUser(@PathVariable Long id, @RequestBody User user){
+    public ResponseEntity<User> updateUser(@PathVariable Integer id, @RequestBody User user){
             User userUp = userService.updateUser(id, user);
             return new ResponseEntity<>(userUp, HttpStatus.OK);
     }
 
     @DeleteMapping("/deletebyid/{id}")
-    public ResponseEntity<Void> deleteUser(@PathVariable Long id){
+    public ResponseEntity<Void> deleteUser(@PathVariable Integer id){
             userService.deleteUserById(id);
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
