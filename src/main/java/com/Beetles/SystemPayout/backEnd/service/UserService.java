@@ -55,8 +55,8 @@ public class UserService {
             userExist.setTelefone(user.getTelefone());}
             if (userExist.getStatus() != null){
             userExist.setStatus(user.getStatus());}
-            if (userExist.getPlanoescolhidoId() != null){
-            userExist.setPlanoEscolhido(user.getPlanoescolhidoId());}
+            if (userExist.getPlanoEscolhidoId() != null){
+            userExist.setPlanoEscolhidoId(user.getPlanoEscolhidoId());}
             return repository.save(userExist);
     }
 }

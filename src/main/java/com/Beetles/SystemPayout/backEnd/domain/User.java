@@ -34,11 +34,12 @@ public class User {
     private String nome;
     @ManyToOne
     @JoinColumn(name = "plano_id")
-    private Planos planoEscolhido;
+    private Planos planoEscolhidoId;
     private boolean primeiroAcesso;
     private String status;
     private LocalDate diaVencimento;
     private LocalDate dataProximoVencimento;
+    private LocalDate dataInicioPlano;
     private LocalDate dataCadastro;
 
     public void transformarTelefone() {

@@ -25,7 +25,7 @@ public class Planos {
     @Column(nullable = false)
     private String categoria;
     @Column(nullable = false)
-    private Integer frequenciaSemanal;
+    private Integer frequenciaAulas;
     private BigDecimal valor;
     private boolean ativo;
     private LocalDate dataCriacao;

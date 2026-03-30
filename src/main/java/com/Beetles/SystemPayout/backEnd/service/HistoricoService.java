@@ -22,12 +22,12 @@ public class HistoricoService {
     public Historico registrarPagamento(Integer alunoId) {
         User aluno = userRepository.findById(alunoId)
                 .orElseThrow(() -> new RuntimeException("Id não encontrado"));
-        if (aluno.getPlanoescolhidoId() == null) {
+        if (aluno.getPlanoEscolhidoId() == null) {
             throw new RuntimeException("O usuário não possui nenhum plano vinculado");
         }
         Historico novoHistorico = new Historico();
         novoHistorico.setHistoricoAlunoId(aluno);
-        novoHistorico.setValorCobrado(aluno.getPlanoescolhidoId().getValor());
+        novoHistorico.setValorCobrado(aluno.getPlanoEscolhidoId().getValor());
         novoHistorico.setDataSolicitacao(LocalDateTime.now());
         novoHistorico.setStatusPagamento("Concluido");
         return historicoRepository.save(novoHistorico);

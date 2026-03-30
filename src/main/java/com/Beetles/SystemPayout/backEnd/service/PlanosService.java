@@ -35,7 +35,7 @@ public class PlanosService {
         planoExistente.setCategoria(planos.getCategoria());}
         if(planoExistente.getValor() != null){
         planoExistente.setValor(planos.getValor());}
-        planoExistente.setFrequenciaSemanal(planos.getFrequenciaSemanal());
+        planoExistente.setFrequenciaAulas(planos.getFrequenciaAulas());
         return repository.save(planoExistente);
     }
 }
