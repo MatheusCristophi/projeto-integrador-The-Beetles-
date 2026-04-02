@@ -1,4 +1,4 @@
-package com.Beetles.SystemPayout.backEnd.exceptions;
+package com.Beetles.systempayout.backend.exceptions;
 
 public class DeleteUserError extends RuntimeException {
     public DeleteUserError(String message) {

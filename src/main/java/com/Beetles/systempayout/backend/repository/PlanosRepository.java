@@ -1,6 +1,6 @@
-package com.Beetles.SystemPayout.backEnd.repository;
+package com.Beetles.systempayout.backend.repository;
 
-import com.Beetles.SystemPayout.backEnd.domain.Planos;
+import com.Beetles.systempayout.backend.domain.Planos;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

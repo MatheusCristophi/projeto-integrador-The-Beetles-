@@ -1,7 +1,7 @@
-package com.Beetles.SystemPayout.backEnd.service;
+package com.Beetles.systempayout.backend.service;
 
-import com.Beetles.SystemPayout.backEnd.domain.Planos;
-import com.Beetles.SystemPayout.backEnd.repository.PlanosRepository;
+import com.Beetles.systempayout.backend.domain.Planos;
+import com.Beetles.systempayout.backend.repository.PlanosRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

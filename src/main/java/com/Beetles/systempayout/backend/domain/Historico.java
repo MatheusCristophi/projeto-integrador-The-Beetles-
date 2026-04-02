@@ -1,4 +1,4 @@
-package com.Beetles.SystemPayout.backEnd.domain;
+package com.Beetles.systempayout.backend.domain;
 
 import jakarta.persistence.*;
 import lombok.*;
@@ -16,6 +16,7 @@ public class Historico {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(nullable = false, unique = true)
+
     private Integer historicoId;
     @ManyToOne
     @JoinColumn(name = "aluno_id")
@@ -28,7 +29,7 @@ public class Historico {
 
     public void solicitacao() {
         if (this.historicoAlunoId != null) {
-            this.dataSolicitacao = this.historicoAlunoId.getDataInicioPlano();
+            this.dataSolicitacao = LocalDate.now();
         }
     }
 }

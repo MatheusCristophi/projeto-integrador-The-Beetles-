@@ -1,4 +1,4 @@
-package com.Beetles.SystemPayout.backEnd.exceptions;
+package com.Beetles.systempayout.backend.exceptions;
 
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 

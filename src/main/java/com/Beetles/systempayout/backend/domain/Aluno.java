@@ -1,4 +1,4 @@
-package com.Beetles.SystemPayout.backEnd.domain;
+package com.Beetles.systempayout.backend.domain;
 
 import jakarta.persistence.*;
 import lombok.*;
@@ -44,8 +44,15 @@ public class Aluno {
     private LocalDate dataCadastro;
 
     public void transformarTelefone() {
-        if (this.telefone != null && !this.telefone.contains("@")) {
+        if(this.telefone != null && !this.telefone.contains("@")) {
             this.telefone = this.telefone + "@ctjsfightuba.com.br";
+        }
+    }
+    public void calcularVencimento(){
+        if(this.dataInicioPlano == null){
+            throw new RuntimeException("O usuário não possui um plano cadastrado");
+        }else{
+            diaVencimento = dataInicioPlano.plusMonths(1);
         }
     }
 }

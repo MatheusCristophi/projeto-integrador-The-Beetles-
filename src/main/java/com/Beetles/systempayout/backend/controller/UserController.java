@@ -1,7 +1,7 @@
-package com.Beetles.SystemPayout.backEnd.controller;
+package com.Beetles.systempayout.backend.controller;
 
-import com.Beetles.SystemPayout.backEnd.domain.Aluno;
-import com.Beetles.SystemPayout.backEnd.service.UserService;
+import com.Beetles.systempayout.backend.domain.Aluno;
+import com.Beetles.systempayout.backend.service.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

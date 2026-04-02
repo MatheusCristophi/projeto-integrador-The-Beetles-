@@ -1,7 +1,7 @@
-package com.Beetles.SystemPayout.backEnd.service;
+package com.Beetles.systempayout.backend.service;
 
-import com.Beetles.SystemPayout.backEnd.domain.Aluno;
-import com.Beetles.SystemPayout.backEnd.repository.UserRepository;
+import com.Beetles.systempayout.backend.domain.Aluno;
+import com.Beetles.systempayout.backend.repository.UserRepository;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;

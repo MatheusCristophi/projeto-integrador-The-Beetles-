@@ -1,13 +1,10 @@
-package com.Beetles.SystemPayout.backEnd.domain;
+package com.Beetles.systempayout.backend.domain;
 
-import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
 import lombok.*;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
 
 @Entity
 @Table(name = "planos")
