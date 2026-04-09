@@ -1,5 +1,6 @@
-package com.Beetles.systempayout.backend.domain;
+package com.Beetles.systempayout.backend.historico.model;
 
+import com.Beetles.systempayout.backend.aluno.model.Aluno;
 import jakarta.persistence.*;
 import lombok.*;
 

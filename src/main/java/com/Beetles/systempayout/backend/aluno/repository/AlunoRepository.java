@@ -1,6 +1,6 @@
-package com.Beetles.systempayout.backend.repository;
+package com.Beetles.systempayout.backend.aluno.repository;
 
-import com.Beetles.systempayout.backend.domain.Aluno;
+import com.Beetles.systempayout.backend.aluno.model.Aluno;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 /*
@@ -11,5 +11,5 @@ Essa anotação faz o SpringBoot reconhecer essa Interface como um repositório
 
 
 //Aqui estou extendo o JPA que realiza a conexão com o banco de dados
-public interface UserRepository extends JpaRepository<Aluno, Integer> {
+public interface AlunoRepository extends JpaRepository<Aluno, Integer> {
 }

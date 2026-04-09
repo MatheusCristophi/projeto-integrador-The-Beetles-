@@ -1,4 +1,4 @@
-package com.Beetles.systempayout.backend.exceptions;
+package com.Beetles.systempayout.backend.aluno.exception;
 
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 

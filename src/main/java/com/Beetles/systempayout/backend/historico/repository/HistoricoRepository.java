@@ -1,6 +1,6 @@
-package com.Beetles.systempayout.backend.repository;
+package com.Beetles.systempayout.backend.historico.repository;
 
-import com.Beetles.systempayout.backend.domain.Historico;
+import com.Beetles.systempayout.backend.historico.model.Historico;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

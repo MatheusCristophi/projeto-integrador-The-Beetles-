@@ -1,7 +1,7 @@
-package com.Beetles.systempayout.backend.service;
+package com.Beetles.systempayout.backend.aluno.service;
 
-import com.Beetles.systempayout.backend.domain.Aluno;
-import com.Beetles.systempayout.backend.repository.UserRepository;
+import com.Beetles.systempayout.backend.aluno.model.Aluno;
+import com.Beetles.systempayout.backend.aluno.repository.AlunoRepository;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -9,11 +9,11 @@ import java.util.List;
 //Essa anotação faz o SpringBoot reconhecer essa classe como um service
 @org.springframework.stereotype.Service
 
-public class UserService {
+public class AlunoService {
     // Isso é uma injeção de dependencia, estou injetando o Repositorio para ser usado nessa classe
-    private final UserRepository repository;
+    private final AlunoRepository repository;
 
-    public UserService(UserRepository repository) {
+    public AlunoService(AlunoRepository repository) {
         this.repository = repository;
     }
 

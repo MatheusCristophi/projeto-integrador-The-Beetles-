@@ -1,9 +1,9 @@
-package com.Beetles.systempayout.backend.service;
+package com.Beetles.systempayout.backend.historico.service;
 
-import com.Beetles.systempayout.backend.domain.Historico;
-import com.Beetles.systempayout.backend.domain.Aluno;
-import com.Beetles.systempayout.backend.repository.HistoricoRepository;
-import com.Beetles.systempayout.backend.repository.UserRepository;
+import com.Beetles.systempayout.backend.historico.model.Historico;
+import com.Beetles.systempayout.backend.aluno.model.Aluno;
+import com.Beetles.systempayout.backend.historico.repository.HistoricoRepository;
+import com.Beetles.systempayout.backend.aluno.repository.AlunoRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -11,16 +11,16 @@ import org.springframework.transaction.annotation.Transactional;
 public class HistoricoService {
 
     private final HistoricoRepository historicoRepository;
-    private final UserRepository userRepository;
+    private final AlunoRepository alunoRepository;
 
-    public HistoricoService(HistoricoRepository historicoRepository, UserRepository userRepository) {
+    public HistoricoService(HistoricoRepository historicoRepository, AlunoRepository alunoRepository) {
         this.historicoRepository = historicoRepository;
-        this.userRepository = userRepository;
+        this.alunoRepository = alunoRepository;
     }
 
     @Transactional
     public Historico registrarPagamento(Integer alunoId) {
-        Aluno aluno = userRepository.findById(alunoId)
+        Aluno aluno = alunoRepository.findById(alunoId)
                 .orElseThrow(() -> new RuntimeException("Id não encontrado"));
         if (aluno.getPlanoEscolhidoId() == null) {
             throw new RuntimeException("O usuário não possui nenhum plano vinculado");

@@ -1,4 +1,4 @@
-package com.Beetles.systempayout.backend.domain;
+package com.Beetles.systempayout.backend.plano.model;
 
 import jakarta.persistence.*;
 import lombok.*;
