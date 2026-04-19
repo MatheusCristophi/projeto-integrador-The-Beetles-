@@ -1,8 +1,5 @@
 package com.Beetles.systempayout.backend.plano.service;
 
-import com.Beetles.systempayout.backend.aluno.Mapper.AlunoMapper;
-import com.Beetles.systempayout.backend.plano.DTO.PlanoDTO;
-import com.Beetles.systempayout.backend.plano.mapper.PlanoMapper;
 import com.Beetles.systempayout.backend.plano.model.Plano;
 import com.Beetles.systempayout.backend.plano.repository.PlanoRepository;
 import org.springframework.stereotype.Service;
@@ -18,64 +15,53 @@ import static com.Beetles.systempayout.backend.shared.utils.DateTimeLocal.pegarH
 @Service
 public class PlanosService {
     private final PlanoRepository repository;
-    private final PlanoMapper planoMapper;
-    private final AlunoMapper alunoMapper;
 
-    public PlanosService(PlanoRepository repository, PlanoMapper planoMapper, AlunoMapper alunoMapper) {
+    public PlanosService(PlanoRepository repository) {
         this.repository = repository;
-        this.planoMapper = planoMapper;
-        this.alunoMapper = alunoMapper;
     }
 
     @Transactional
-    public PlanoDTO criarPlano(PlanoDTO planoDTO){
-        Plano plano = planoMapper.map(planoDTO);
-        plano.setDataCriacao(pegarHorarioAtual());
-        plano = repository.save(plano);
-        return planoMapper.map(plano);
+    public Plano criarPlano(Plano plano){
+        plano.onCreated();
+        return repository.save(plano);
     }
 
-    public List<PlanoDTO> mostrarTodosPlanos(){
-        List<Plano> plano = repository.findAll();
-        return plano.stream()
-                .map(planoMapper::map)
-                .collect(Collectors.toList());
+    public List<Plano> mostrarTodosPlanos(){
+        return repository.findAll();
     }
-    public PlanoDTO mostrarPlanoEspecificoPeloId(UUID id){
-        Optional<Plano> plano = repository.findById(id);
-        return plano.map(planoMapper::map).orElse(null);
-    }
-    @Transactional
-    public PlanoDTO modificarPlano(PlanoDTO planoDTO, UUID id){
-        Plano plano = repository.findById(id)
+
+    public Plano mostrarPlanoEspecificoPeloId(UUID id){
+        return repository.findById(id)
                 .orElseThrow(()-> new RuntimeException("Id não encontrado"));
-        if (planoDTO.getNome() != null){
-            plano.setNome(planoDTO.getNome());
+    }
+
+    @Transactional
+    public Plano modificarPlano(Plano plano, UUID id){
+        Plano planoAnterior = repository.findById(id)
+                .orElseThrow(()-> new RuntimeException("Id não encontrado"));
+        if (plano.getNome() != null){
+            planoAnterior.setNome(plano.getNome());
         }
-        if (planoDTO.getCategoria() != null){
-            plano.setCategoria(planoDTO.getCategoria());
+        if (plano.getCategoria() != null){
+            planoAnterior.setCategoria(plano.getCategoria());
         }
-        if (planoDTO.getValor() != null){
-            plano.setValor(planoDTO.getValor());
+        if (plano.getValor() != null){
+            planoAnterior.setValor(plano.getValor());
         }
-        if (planoDTO.getAlunos() != null){
-            plano.setAlunos(planoDTO.getAlunos());
+        if (plano.getAlunos() != null){
+            planoAnterior.setAlunos(plano.getAlunos());
         }
-        if (planoDTO.getFrequenciaAulas() != null){
-            plano.setFrequenciaAulas(planoDTO.getFrequenciaAulas());
+        if(plano.getFrequenciaAulas() != 0) {
+            planoAnterior.setFrequenciaAulas(plano.getFrequenciaAulas());
         }
-        repository.save(plano);
-        return planoMapper.map(plano);
+        return repository.save(planoAnterior);
     }
 
     @Transactional
     public void deletarPlano(UUID id){
-        if(!repository.existsById(id)) {
+        if(!repository.existsById(id)){
+            throw new RuntimeException("O Id não existe");
+        }
             repository.deleteById(id);
-        }
-        if(repository.findById(id) == null){
-            throw new RuntimeException("O Id não pode ser null");
-        }
-        throw new RuntimeException("Id não encontrado");
     }
 }

@@ -1,6 +1,9 @@
 package com.Beetles.systempayout.backend.plano.controller;
 
-import com.Beetles.systempayout.backend.plano.DTO.PlanoDTO;
+import com.Beetles.systempayout.backend.plano.controller.mapper.PlanoMapper;
+import com.Beetles.systempayout.backend.plano.controller.request.PlanoRequest;
+import com.Beetles.systempayout.backend.plano.controller.response.PlanoResponse;
+import com.Beetles.systempayout.backend.plano.model.Plano;
 import com.Beetles.systempayout.backend.plano.service.PlanosService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,27 +23,33 @@ public class PlanoController {
     }
 
     @PostMapping
-    public ResponseEntity<PlanoDTO> salvarPlano(@RequestBody PlanoDTO planoDTO) {
-        PlanoDTO planoSalvo = service.criarPlano(planoDTO);
-        return new ResponseEntity<>(planoSalvo, HttpStatus.CREATED);
+    public ResponseEntity<PlanoResponse> salvarPlano(@RequestBody PlanoRequest plano) {
+        Plano planoSalvo = service.criarPlano(PlanoMapper.mapRequest(plano));
+        PlanoResponse planoResponse = PlanoMapper.mapResponse(planoSalvo);
+        return new ResponseEntity<>(planoResponse, HttpStatus.CREATED);
     }
 
     @GetMapping
-    public ResponseEntity<List<PlanoDTO>> mostrarPlanos() {
-        List<PlanoDTO> lista = service.mostrarTodosPlanos();
-        return new ResponseEntity<>(lista, HttpStatus.OK);
+    public ResponseEntity<List<PlanoResponse>> mostrarPlanos() {
+        List<Plano> plano = service.mostrarTodosPlanos();
+        List<PlanoResponse> planoResponses = plano
+                .stream().map(PlanoMapper::mapResponse)
+                .toList();
+        return ResponseEntity.ok(planoResponses);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<PlanoDTO> verPlanoEspecifico(@PathVariable UUID id) {
-        PlanoDTO planoDTO = service.mostrarPlanoEspecificoPeloId(id);
-        return new ResponseEntity<>(planoDTO, HttpStatus.FOUND);
+    public ResponseEntity<PlanoResponse> verPlanoEspecifico(@PathVariable UUID id) {
+        Plano plano = service.mostrarPlanoEspecificoPeloId(id);
+        PlanoResponse planoResponse = PlanoMapper.mapResponse(plano);
+        return new ResponseEntity<>(planoResponse, HttpStatus.FOUND);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<PlanoDTO> atualizarPlano(@RequestBody PlanoDTO planoDTO, @PathVariable UUID id) {
-        PlanoDTO planoAtt = service.modificarPlano(planoDTO, id);
-        return new ResponseEntity<>(planoAtt, HttpStatus.OK);
+    public ResponseEntity<PlanoResponse> atualizarPlano(@RequestBody PlanoRequest plano, @PathVariable UUID id) {
+        Plano planoAnterior = service.modificarPlano(PlanoMapper.mapRequest(plano), id);
+        PlanoResponse planoAtualizado = PlanoMapper.mapResponse(planoAnterior);
+        return new ResponseEntity<>(planoAtualizado, HttpStatus.ACCEPTED);
     }
 
     @DeleteMapping("/{id}")

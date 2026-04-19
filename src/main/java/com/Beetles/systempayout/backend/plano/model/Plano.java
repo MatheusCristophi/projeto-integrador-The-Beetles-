@@ -5,14 +5,17 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.math.BigDecimal;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Set;
 import java.util.UUID;
+
+import static com.Beetles.systempayout.backend.shared.utils.DateTimeLocal.pegarHorarioAtual;
 
 @Entity
 @Table(name = "planos")
 @Getter
 @Setter
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString(exclude = "alunos")
@@ -28,10 +31,15 @@ public class Plano {
     @Column(nullable = false)
     private String categoria;
     @Column(nullable = false)
-    private Integer frequenciaAulas;
+    private int frequenciaAulas;
     @Column(precision = 10, scale = 2)
     private BigDecimal valor;
     private boolean ativo;
     @Column(updatable = false)
-    private LocalDate dataCriacao;
+    private LocalDateTime dataCriacao;
+
+    @PrePersist
+    public void onCreated(){
+        this.dataCriacao = pegarHorarioAtual();
+    }
 }
