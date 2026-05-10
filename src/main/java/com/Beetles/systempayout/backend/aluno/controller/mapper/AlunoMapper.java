@@ -13,6 +13,7 @@ public class AlunoMapper{
                 .builder()
                 .email(request.email())
                 .nome(request.nome())
+                .numero(request.numero())
                 .senha(request.senha())
                 .planoEscolhidoId(request.plano())
                 .build();

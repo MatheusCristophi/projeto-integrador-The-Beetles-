@@ -3,10 +3,11 @@ package com.Beetles.systempayout.backend.historico.controller;
 import com.Beetles.systempayout.backend.historico.controller.Mapper.HistoricoMapper;
 import com.Beetles.systempayout.backend.historico.controller.Request.HistoricoRequest;
 import com.Beetles.systempayout.backend.historico.controller.Response.HistoricoResponse;
-import com.Beetles.systempayout.backend.historico.model.Historico;
 import com.Beetles.systempayout.backend.historico.service.HistoricoService;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.UUID;
@@ -21,23 +22,27 @@ public class HistoricoController {
     }
 
     @PostMapping("/salvar")
-    public ResponseEntity<HistoricoResponse> salvar(@RequestBody HistoricoRequest historico){
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<HistoricoResponse> salvar(@Valid @RequestBody HistoricoRequest historico){
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(HistoricoMapper.mapResponse(service.salvarHistorico(HistoricoMapper.mapRequest(historico))));
     }
 
     @GetMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<HistoricoResponse> buscar(@PathVariable UUID id){
         return ResponseEntity.ok(HistoricoMapper.mapResponse(service.verHistoricoId(id)));
         }
 
     @PostMapping("/solicitacao/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<HistoricoResponse> solicitar(@PathVariable UUID id){
         return ResponseEntity.status(HttpStatus.ACCEPTED)
                 .body(HistoricoMapper.mapResponse(service.registrarDataDeSolicitacao(id)));
     }
 
     @PostMapping("/confirmar/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<HistoricoResponse> confirmar(@PathVariable UUID id){
         return ResponseEntity.status(HttpStatus.ACCEPTED)
                 .body(HistoricoMapper.mapResponse(service.registrarDataDeConfirmacao(id)));

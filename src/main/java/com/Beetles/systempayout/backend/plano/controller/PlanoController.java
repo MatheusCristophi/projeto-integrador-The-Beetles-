@@ -5,6 +5,7 @@ import com.Beetles.systempayout.backend.plano.controller.request.PlanoRequest;
 import com.Beetles.systempayout.backend.plano.controller.response.PlanoResponse;
 import com.Beetles.systempayout.backend.plano.model.Plano;
 import com.Beetles.systempayout.backend.plano.service.PlanosService;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -23,7 +24,7 @@ public class PlanoController {
     }
 
     @PostMapping("/salvar")
-    public ResponseEntity<PlanoResponse> salvarPlano(@RequestBody PlanoRequest request) {
+    public ResponseEntity<PlanoResponse> salvarPlano(@Valid @RequestBody PlanoRequest request) {
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(PlanoMapper.mapResponse(service.criarPlano(PlanoMapper.mapRequest(request))));
     }
@@ -46,7 +47,7 @@ public class PlanoController {
     }
 
     @PutMapping("/atualizar/{id}")
-    public ResponseEntity<PlanoResponse> atualizarPlano(@RequestBody PlanoRequest plano, @PathVariable UUID id) {
+    public ResponseEntity<PlanoResponse> atualizarPlano(@Valid @RequestBody PlanoRequest plano, @PathVariable UUID id) {
         Plano planoAnterior = service.modificarPlano(PlanoMapper.mapRequest(plano), id);
         PlanoResponse planoAtualizado = PlanoMapper.mapResponse(planoAnterior);
         return new ResponseEntity<>(planoAtualizado, HttpStatus.ACCEPTED);

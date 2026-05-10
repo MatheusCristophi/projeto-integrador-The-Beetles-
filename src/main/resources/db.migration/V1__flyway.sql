@@ -1,5 +1,5 @@
 CREATE TABLE planos(
-    plano_id UUID PRIMARY KEY gen_random_uuid(),
+    plano_id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     nome VARCHAR(255) NOT NULL,
     categoria VARCHAR(255) NOT NULL,
     frequencia_aulas INT NOT NULL,
@@ -9,7 +9,8 @@ CREATE TABLE planos(
 );
 
 CREATE TABLE alunos(
-    aluno_id UUID PRIMARY KEY gen_random_uuid(),
+    aluno_id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    role VARCHAR(20),
     email VARCHAR(255) UNIQUE NOT NULL,
     numero VARCHAR(255) UNIQUE NOT NULL,
     nome VARCHAR(255) NOT NULL,
@@ -24,7 +25,7 @@ CREATE TABLE alunos(
 );
 
 CREATE TABLE historico_pagamento(
-    historico_id UUID PRIMARY KEY gen_random_uuid(),
+    historico_id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     aluno_id UUID REFERENCES alunos(aluno_id),
     valor_cobrado NUMERIC NOT NULL,
     status_pagamento VARCHAR(15) NOT NULL,
@@ -33,8 +34,9 @@ CREATE TABLE historico_pagamento(
 );
 
 CREATE TABLE administrador(
-    admin_id UUID PRIMARY KEY gen_random_uuid(),
+    admin_id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    role VARCHAR(20),
     nome VARCHAR(255) NOT NULL,
     email VARCHAR(255) UNIQUE NOT NULL,
     senha VARCHAR(255) NOT NULL
-)
+);

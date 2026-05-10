@@ -2,21 +2,24 @@ package com.Beetles.systempayout.backend.aluno.service;
 
 import com.Beetles.systempayout.backend.aluno.model.Aluno;
 import com.Beetles.systempayout.backend.aluno.repository.AlunoRepository;
+import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
+@RequiredArgsConstructor
+public class AlunoService{
 
-public class AlunoService {
-
-   private final AlunoRepository repository;
-
-    public AlunoService(AlunoRepository repository) {
-        this.repository = repository;
-    }
+    private final AlunoRepository repository;
+    private final PasswordEncoder passwordEncoder;
 
     @Transactional(readOnly = true)
     public List<Aluno> listUsers() {
@@ -30,8 +33,10 @@ public class AlunoService {
                 .orElseThrow(()-> new RuntimeException("Id não encontrado"));
     }
 
-
-    public Aluno saveUser(Aluno aluno) {
+    @Transactional
+    public Aluno registerUser(Aluno aluno) {
+        String senha = aluno.getSenha();
+        aluno.setSenha(passwordEncoder.encode(senha));
         return repository.save(aluno);
     }
 
@@ -52,8 +57,15 @@ public class AlunoService {
         if (aluno.getNome() != null) {
             alunoExist.setNome(aluno.getNome());
         }
+        if (aluno.getNumero() != null){
+            alunoExist.setNumero(aluno.getNumero());
+        }
         if (aluno.getEmail() != null) {
             alunoExist.setEmail(aluno.getEmail());
+        }
+        if (aluno.getSenha() != null){
+            String senha = aluno.getSenha();
+            alunoExist.setSenha(passwordEncoder.encode(senha));
         }
         if (aluno.getPlanoEscolhidoId() != null) {
             alunoExist.setPlanoEscolhidoId(aluno.getPlanoEscolhidoId());

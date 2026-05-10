@@ -34,7 +34,6 @@ public class Historico {
     @PositiveOrZero(message = "O valor cobrado não pode ser negativo")
     private BigDecimal valorCobrado;
 
-    @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private StatusPagamento statusPagamento;
 

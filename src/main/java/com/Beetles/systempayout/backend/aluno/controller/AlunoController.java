@@ -3,33 +3,25 @@ package com.Beetles.systempayout.backend.aluno.controller;
 import com.Beetles.systempayout.backend.aluno.controller.mapper.AlunoMapper;
 import com.Beetles.systempayout.backend.aluno.controller.request.AlunoRequest;
 import com.Beetles.systempayout.backend.aluno.controller.response.AlunoResponse;
-import com.Beetles.systempayout.backend.aluno.model.Aluno;
 import com.Beetles.systempayout.backend.aluno.service.AlunoService;
+import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("/alunos")
-
+@RequestMapping("aluno")
+@RequiredArgsConstructor
 public class AlunoController {
     private final AlunoService service;
 
-    public AlunoController(AlunoService service) {
-        this.service = service;
-    }
-
-    @PostMapping("/save")
-    public ResponseEntity<AlunoResponse> saveUser(@RequestBody AlunoRequest request) {
-        return ResponseEntity.status(HttpStatus.CREATED)
-                .body(AlunoMapper.mapResponse((service.saveUser(AlunoMapper.mapRequest(request)))));
-    }
-
     @GetMapping("/all")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<List<AlunoResponse>> getAllUsers(){
         return ResponseEntity.status(HttpStatus.OK).body(
                 service.listUsers()
@@ -38,17 +30,20 @@ public class AlunoController {
                 .toList());
     }
 
-    @GetMapping("/buscar/{id}")
+    @GetMapping("/getId/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<AlunoResponse> getUserById(@PathVariable UUID id){
             return ResponseEntity.ok(AlunoMapper.mapResponse(service.listUserById(id)));
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<AlunoResponse> updateUser(@PathVariable UUID id, @RequestBody AlunoRequest request){
+    @PutMapping("/update/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<AlunoResponse> updateUser(@PathVariable UUID id, @Valid @RequestBody AlunoRequest request){
         return ResponseEntity.ok(AlunoMapper.mapResponse(service.updateUser(id, AlunoMapper.mapRequest(request))));
     }
 
-    @DeleteMapping("deletar/{id}")
+    @DeleteMapping("/delete/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Void> deleteUser(@PathVariable UUID id){
             service.deleteUserById(id);
             return ResponseEntity.noContent().build();
