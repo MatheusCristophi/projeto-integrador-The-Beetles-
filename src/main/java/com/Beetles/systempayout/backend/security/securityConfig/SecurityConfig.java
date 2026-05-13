@@ -33,6 +33,7 @@ public class SecurityConfig {
                 authorizeHttpRequests(auth -> auth
                         .requestMatchers(HttpMethod.POST, "/auth/login").permitAll().
                         requestMatchers(HttpMethod.POST,"/auth/admin/register").permitAll().
+                        requestMatchers("index.html", "login.html", "alterarSenha.html" ).permitAll().
                         anyRequest().authenticated())
                 .addFilterBefore(securityFilter.getObject(), UsernamePasswordAuthenticationFilter.class)
         .build();
