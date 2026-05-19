@@ -55,7 +55,7 @@ button:hover {
 
 #sobre {
     align-items: center;
-    background: linear-gradient(to bottom, transparent 70%, #0c0c0c), url("../elements/bg-n1.png") center/cover;
+    background: linear-gradient(to bottom, transparent 70%, #0c0c0c), url("../../elements/bg-n1.png") center/cover;
     display: flex;
     flex-direction: column;
     height: 100vh;

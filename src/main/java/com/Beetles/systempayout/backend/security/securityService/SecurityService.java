@@ -23,7 +23,8 @@ public class SecurityService implements UserDetailsService {
 
         if (admin.isPresent()) {
             return admin.get();
-        }else if(aluno.isPresent()) {
+        }
+        if(aluno.isPresent()) {
             return aluno.get();
         }
         throw new UsernameNotFoundException("Email ou senha incorreta");

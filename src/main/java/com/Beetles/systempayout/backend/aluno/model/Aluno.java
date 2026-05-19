@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.UUID;
 
 @Entity
-@Table(name="alunos")
+@Table(name = "alunos")
 @Builder
 @Getter
 @Setter
@@ -26,7 +26,7 @@ public class Aluno implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    @Column(name = "aluno_id",nullable = false, unique = true)
+    @Column(name = "aluno_id", nullable = false, unique = true)
     private UUID alunoId;
 
     @Column(unique = true, nullable = false)
@@ -45,15 +45,19 @@ public class Aluno implements UserDetails {
     @JoinColumn(name = "plano_escolhido_id", nullable = true)
     private Plano planoEscolhidoId;
 
+    @Column(name = "primeiro_acesso")
     private boolean primeiroAcesso = true;
 
+    @Column(name = "status")
     private String status;
 
+    @Column(name = "dia_vencimento")
     private LocalDateTime diaVencimento;
 
     @Column(name = "role")
     private Enums_roles role = Enums_roles.ALUNOS;
 
+    @Column(name = "data_proximo_vencimento")
     private LocalDateTime dataProximoVencimento;
 
     @CreationTimestamp
@@ -64,20 +68,21 @@ public class Aluno implements UserDetails {
     private LocalDateTime dataCadastro;
 
     @PrePersist
-    public void roles(){
-        if(this.role == null){
+    public void roles() {
+        if (this.role == null) {
             this.role = Enums_roles.ALUNOS;
         }
     }
 
-    public void calcularVencimento(){
-        if(this.dataInicioPlano == null){
+    public void calcularVencimento() {
+        if (this.dataInicioPlano == null) {
             throw new RuntimeException("O usuário não possui um plano cadastrado");
-        }else{
+        } else {
             diaVencimento = dataInicioPlano.plusMonths(1);
         }
     }
-    public void proximoVencimento(){
+
+    public void proximoVencimento() {
         this.dataProximoVencimento = this.diaVencimento.plusMonths(1);
     }
 
