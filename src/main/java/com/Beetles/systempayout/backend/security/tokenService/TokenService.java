@@ -27,6 +27,7 @@ public class TokenService {
                     .withSubject(user.getUsername())
                     .withExpiresAt(genExpireAt())
                     .sign(algorithm);
+                
             return token;
         }catch(JWTCreationException exception){
             throw new RuntimeException("erro ao gerar um token", exception);
