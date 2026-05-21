@@ -19,7 +19,7 @@ CREATE TABLE alunos(
     primeiro_acesso BOOLEAN,
     status VARCHAR(255),
     dia_vencimento TIMESTAMP,
-    dataProximoVencimento TIMESTAMP,
+    data_proximo_vencimento TIMESTAMP,
     data_inicio_plano TIMESTAMP,
     data_cadastro TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );

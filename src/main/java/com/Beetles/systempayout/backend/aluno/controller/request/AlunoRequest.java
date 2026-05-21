@@ -10,13 +10,15 @@ import lombok.Builder;
 
 @Builder
 public record AlunoRequest(@NotBlank
+                           String nome,
+                           @NotBlank
                            String email,
                            @Size(min = 9, max = 13, message = "O número deve conter entre 9 e 13 caracteres")
                            String numero,
                            @Size(min = 8, max = 15, message = "A senha deve conter entre 8 e 15 caracteres")
+                           @Nullable
                            String senha,
                            @Nullable
-                           Plano plano,
-                           @NotBlank
-                           String nome) {
+                           Plano plano
+                           ) {
 }
