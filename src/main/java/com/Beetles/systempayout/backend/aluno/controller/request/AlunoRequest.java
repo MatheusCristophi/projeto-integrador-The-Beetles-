@@ -1,18 +1,18 @@
 package com.Beetles.systempayout.backend.aluno.controller.request;
 
-import com.Beetles.systempayout.backend.plano.model.Plano;
 import com.Beetles.systempayout.backend.shared.enums.Enum_Status;
 import jakarta.annotation.Nullable;
 import jakarta.validation.constraints.NotBlank;
-import lombok.Builder;
+import jakarta.validation.constraints.NotNull;
+
+import java.util.UUID;
 
 
-@Builder
 public record AlunoRequest(@NotBlank
                            String nome,
                            @Nullable
-                           Plano plano,
-                           @Nullable
+                           UUID plano,
+                           @NotNull
                            Enum_Status status
                            ) {
 }

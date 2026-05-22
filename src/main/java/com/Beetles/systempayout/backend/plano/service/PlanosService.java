@@ -1,5 +1,7 @@
 package com.Beetles.systempayout.backend.plano.service;
 
+import com.Beetles.systempayout.backend.aluno.model.Aluno;
+import com.Beetles.systempayout.backend.aluno.repository.AlunoRepository;
 import com.Beetles.systempayout.backend.plano.controller.request.PlanoRequest;
 import com.Beetles.systempayout.backend.plano.model.Plano;
 import com.Beetles.systempayout.backend.plano.repository.PlanoRepository;
@@ -9,26 +11,32 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.UUID;
 
 
 @Service
 public class PlanosService {
     private final PlanoRepository repository;
+    private final AlunoRepository alunoRepository;
 
-    public PlanosService(PlanoRepository repository) {
+    public PlanosService(PlanoRepository repository, AlunoRepository alunoRepository) {
         this.repository = repository;
+        this.alunoRepository = alunoRepository;
     }
 
     @Transactional
     public Plano criarPlano(PlanoRequest request){
+
+        List<Aluno> aluno = alunoRepository.findAllById(request.alunos());
+
         Plano plano = new Plano();
 
         plano.setNome(request.nome());
         plano.setCategoria(request.categoria());
         plano.setValor(request.valor());
         plano.setAtivo(request.ativo());
-        plano.setAlunos(request.alunos());
+        plano.setAlunos(aluno);
 
         return repository.save(plano);
     }
@@ -47,6 +55,8 @@ public class PlanosService {
         Plano plano = repository.findById(id)
                 .orElseThrow(()-> new IdNotFoundException(id));
 
+            List<Aluno> aluno = alunoRepository.findAllById(request.alunos());
+
         if (request.nome() != null){
             plano.setNome(request.nome());
         }
@@ -56,9 +66,7 @@ public class PlanosService {
         if (request.valor() != null){
             plano.setValor(request.valor());
         }
-        if (request.alunos() != null){
-            plano.setAlunos(request.alunos());
-        }
+        plano.setAlunos(aluno);
         return repository.save(plano);
     }
 

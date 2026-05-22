@@ -6,7 +6,7 @@ import lombok.*;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.Set;
+import java.util.List;
 import java.util.UUID;
 
 import static com.Beetles.systempayout.backend.shared.utils.DateTimeLocal.pegarHorarioAtual;
@@ -28,7 +28,7 @@ public class Plano {
     private String nome;
 
     @OneToMany(mappedBy = "planoEscolhidoId",fetch = FetchType.LAZY)
-    private Set<Aluno> alunos;
+    private List<Aluno> alunos;
 
     @Column(nullable = false)
     private String categoria;

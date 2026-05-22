@@ -22,7 +22,7 @@ public class AlunoController {
         this.service = service;
     }
 
-    @GetMapping("/register")
+    @PostMapping("/register")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<AlunoResponse> registerAluno(@Valid @RequestBody AlunoRequest request){
         var aluno = service.registerUser(request);
