@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    //Essa página deve conter a tabela de planos, bem como os inputs para adicionar novos planos
+    <h1>Planos</h1>
+    <table id="tabelaPlanos"></table>
+    <h2>Registrar Plano</h2>
+    <form>
+        <p>Nome:</p>
+        <input id="inNome" type="text">
+        <p>Categoria:</p>
+        <input id="inCat" type="text">
+        <p>Frequência Aulas(Semanal):</p>
+        <input id="inFreq" type="number">
+        <p>Valor(R$):</p>
+        <input id="inValor" type="number">
+        <p>Status:</p>
+        <select name="status" id="inStatusPlano">
+            <option value="Ativo">Ativo</option>
+            <option value="Inativo">Inativo</option>
+        </select>
+        <br>
+        <input type="submit" value="Salvar Plano">
+    </form>
+    <script src="js/auth.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/planos.js"></script>
+</body>
+</html>

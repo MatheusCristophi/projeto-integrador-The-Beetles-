@@ -21,15 +21,16 @@ const Api = {
     //Autenticação
     login: (dados) => request("auth/login", { method: "POST", body: JSON.stringify(dados) }),
     alterarSenha: (dados) => request("auth/?", { method: "POST", body: JSON.stringify(dados) }),
-    registrarAluno: (dados) => request("auth/aluno/register", { method: "POST", body: JSON.stringify(dados) }),
-
+    
     //Aluno
+    registrarAluno: (dados) => request("auth/aluno/register", { method: "POST", body: JSON.stringify(dados) }),
     getAlunos: () => request("aluno/all"),
     getAlunoPorId: (id) => request(`aluno/getId/${id}`),
     atualizarAluno: (id, dados) => request(`aluno/update/${id}`, { method: "PUT", body: JSON.stringify(dados) }),
     deletarAluno: (id) => request(`aluno/delete/${id}`, { method: "DELETE" }),
 
     //Planos
+    registrarPlano: (dados) => request("plano/salvar", { method: "POST", body: JSON.stringify(dados)})
 
     //Historico
 
