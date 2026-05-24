@@ -5,9 +5,11 @@ import com.Beetles.systempayout.backend.plano.model.Plano;
 
 import java.math.BigDecimal;
 import java.util.Set;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
-public record PlanoResponse(String nome,
+public record PlanoResponse(UUID planoId,
+                            String nome,
                             Set<String> alunos,
                             String categoria,
                             BigDecimal valor) {
@@ -24,6 +26,7 @@ public record PlanoResponse(String nome,
         }
 
         return new PlanoResponse(
+                plano.getPlanoId(),
                 plano.getNome(),
                 alunoPlano,
                 plano.getCategoria(),

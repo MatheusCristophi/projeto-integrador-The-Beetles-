@@ -6,6 +6,7 @@ import com.Beetles.systempayout.backend.plano.service.PlanosService;
 import jakarta.validation.Valid;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -30,7 +31,8 @@ public class PlanoController {
     }
 
     @GetMapping("/buscar")
-    public ResponseEntity<Page<PlanoResponse>> mostrarPlanos(@RequestParam Pageable pageable) {
+    public ResponseEntity<Page<PlanoResponse>> mostrarPlanos(
+            @PageableDefault(size = 20, page = 0) Pageable pageable){
         Page<PlanoResponse> response = service
                 .mostrarTodosPlanos(pageable);
         return ResponseEntity.ok(response);

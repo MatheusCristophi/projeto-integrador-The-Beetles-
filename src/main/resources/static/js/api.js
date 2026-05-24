@@ -23,7 +23,7 @@ const Api = {
     alterarSenha: (dados) => request("auth/admin/alterarsenha", { method: "POST", body: JSON.stringify(dados) }),
     
     //Aluno
-    registrarAluno: (dados) => request("auth/aluno/register", { method: "POST", body: JSON.stringify(dados) }),
+    registrarAluno: (dados) => request("aluno/register", { method: "POST", body: JSON.stringify(dados) }),
     getAlunos: () => request("aluno/all"),
     getAlunoPorId: (id) => request(`aluno/getId/${id}`),
     atualizarAluno: (id, dados) => request(`aluno/update/${id}`, { method: "PUT", body: JSON.stringify(dados) }),

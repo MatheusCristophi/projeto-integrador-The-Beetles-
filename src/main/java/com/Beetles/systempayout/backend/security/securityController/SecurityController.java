@@ -4,6 +4,7 @@ package com.Beetles.systempayout.backend.security.securityController;
 import com.Beetles.systempayout.backend.admin.controller.request.AdminRequest;
 import com.Beetles.systempayout.backend.admin.controller.response.AdminResponse;
 import com.Beetles.systempayout.backend.admin.service.AdminService;
+import com.Beetles.systempayout.backend.security.securityController.request.AlterarSenhaRequest;
 import com.Beetles.systempayout.backend.security.securityController.request.LoginRequest;
 import com.Beetles.systempayout.backend.security.securityController.response.LoginResponse;
 import com.Beetles.systempayout.backend.security.securityService.SecurityService;
@@ -19,6 +20,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.Map;
 
 
 @RestController
@@ -44,9 +47,9 @@ public class SecurityController {
     }
 
     @PostMapping("/admin/alterarsenha")
-    public ResponseEntity<String> alterarSenha(@RequestBody String email,@RequestBody String senha) {
-        securityService.alterarSenha(email, senha);
-        return ResponseEntity.ok("Senha alterada com sucesso");
+    public ResponseEntity<Map<String, String>>  alterarSenha(@RequestBody AlterarSenhaRequest request) {
+        securityService.alterarSenha(request);
+        return ResponseEntity.ok(Map.of("message", "Senha alterada com sucesso"));
     }
     
 
