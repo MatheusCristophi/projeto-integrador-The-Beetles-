@@ -1,3 +1,8 @@
+#abatopo {
+    justify-content: center;
+    gap: 5%;
+}
+
 #tabelaPlanos {
     width: 45%;
 }
