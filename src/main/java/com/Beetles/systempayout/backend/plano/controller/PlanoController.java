@@ -10,6 +10,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.UUID;
@@ -26,6 +27,7 @@ public class PlanoController {
     }
 
     @PostMapping("/salvar")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<PlanoResponse> salvarPlano(@Valid @RequestBody PlanoRequest request) {
         var plano = service.criarPlano(request);
         var response = PlanoResponse.toPlanoResponse(plano);
@@ -33,6 +35,7 @@ public class PlanoController {
     }
 
     @GetMapping("/buscar")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Page<PlanoResponse>> mostrarPlanos(
             @PageableDefault(size = 20, page = 0) Pageable pageable){
         Page<PlanoResponse> response = service
@@ -41,12 +44,14 @@ public class PlanoController {
     }
 
     @GetMapping("/buscar/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<PlanoResponse> verPlanoEspecifico(@PathVariable UUID id) {
         var plano = service.mostrarPlanoEspecificoPeloId(id);
         return ResponseEntity.ok(plano);
     }
 
     @PutMapping("/atualizar/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<PlanoResponse> atualizarPlano(@Valid @RequestBody PlanoRequest request, @PathVariable UUID id) {
         var plano = service.modificarPlano(request, id);
         var response = PlanoResponse.toPlanoResponse(plano);
@@ -54,6 +59,7 @@ public class PlanoController {
     }
 
     @DeleteMapping("/deletar/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Void> apagarPlano(@PathVariable UUID id){
         service.deletarPlano(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);

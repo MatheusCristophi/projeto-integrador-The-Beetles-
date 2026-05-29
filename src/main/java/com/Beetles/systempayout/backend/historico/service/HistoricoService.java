@@ -35,7 +35,6 @@ public class HistoricoService {
         historico.setAluno(aluno);
         historico.setValorCobrado(request.valor());
 
-        historico.onCreated();
         return repository.save(historico);
     }
 
@@ -67,6 +66,8 @@ public class HistoricoService {
                 .map(HistoricoResponse::toHistoricoResponse)
                 .toList();
     }
+
+    @Transactional
     public void deletarPagamentoId (UUID id){
         if(!repository.existsById(id)){
             throw new RuntimeException("Pagamento não encontrado.");

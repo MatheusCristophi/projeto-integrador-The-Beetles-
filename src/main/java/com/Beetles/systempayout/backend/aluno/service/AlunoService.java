@@ -91,8 +91,11 @@ public class AlunoService{
         if (request.status() != null){
             aluno.setStatus(request.status());
         }
-        aluno.setPlanoEscolhidoId(plano);
-
+        if(plano != null) {
+            aluno.setPlanoEscolhidoId(plano);
+        }else{
+            aluno.setPlanoEscolhidoId(null);
+        }
         if (request.dataInicioPlano() != null) {
             aluno.setDataInicioPlano(request.dataInicioPlano());
             aluno.calcularVencimento();
