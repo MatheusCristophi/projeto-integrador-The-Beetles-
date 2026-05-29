@@ -14,7 +14,7 @@ async function request(endpoint, options = {}) {
     const text = await response.text();
     const data = text ? JSON.parse(text): {};
     if (!response.ok) {
-        throw new Error((data.message) || "Erro no sistema")
+        throw new Error((data.detail) || "Erro no sistema")
     }
     return data;
 }
@@ -58,12 +58,14 @@ function renderPaginacao(containerId, paginaAtual, totalPaginas, callback) {
     const container = document.getElementById(containerId);
     if (!container) return;
 
+    container.className = "paginacao";
+
     let html = "";
     if (paginaAtual > 0)
         html += `<button onclick="${callback.name}(${paginaAtual - 1})">← Anterior</button>`;
-    
-    html += ` Página ${paginaAtual + 1} de ${totalPaginas} `;
-    
+
+    html += `<span>Página ${paginaAtual + 1} de ${totalPaginas}</span>`;
+
     if (paginaAtual < totalPaginas - 1)
         html += `<button onclick="${callback.name}(${paginaAtual + 1})">Próxima →</button>`;
 
