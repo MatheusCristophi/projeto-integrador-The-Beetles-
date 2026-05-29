@@ -1,7 +1,6 @@
 package com.Beetles.systempayout.backend.admin.service;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
@@ -17,6 +16,8 @@ import com.Beetles.systempayout.backend.admin.controller.request.AdminRequest;
 import com.Beetles.systempayout.backend.admin.model.Admin;
 import com.Beetles.systempayout.backend.admin.repository.AdminRepository;
 import com.Beetles.systempayout.backend.shared.enums.Enums_roles;
+
+import java.util.Optional;
 
 @ActiveProfiles("test")
 @ExtendWith(MockitoExtension.class)
@@ -56,11 +57,26 @@ public class AdminServiceTest {
         assertEquals("matheus", result.getSenha());
         assertEquals(Enums_roles.ADMIN, result.getRole());
     }
-    
 
     @Test
     void testDeletarAdmin() {
+        AdminRequest request = new AdminRequest(
+                "matheus",
+                "matheuscr909@gmail.com",
+                "matheus"
+        );
+        Admin admin = new Admin(
+                request.nome(),
+                request.email(),
+                request.senha(),
+                Enums_roles.ADMIN
+        );
 
+        var ad = adminRepository.save(admin);
+
+        adminRepository.deleteById(admin.getAdminId());
+
+        assertNull(ad);
     }
 
     @Test
@@ -77,13 +93,12 @@ public class AdminServiceTest {
             Enums_roles.ADMIN
         );
 
-        when(adminRepository.save(any(Admin.class))).thenReturn(admin);
+        when(adminRepository.findByEmail(request.email())).thenReturn(Optional.of(admin));
 
         var buscar = adminService.buscarPorEmail(admin.getEmail());
 
         assertNotNull(admin);
         assertNotNull(buscar);
         assertEquals(admin.getEmail(), buscar.email());
-        assertEquals(admin.getSenha(), buscar.email());
     }
 }

@@ -3,6 +3,7 @@ package com.Beetles.systempayout.backend.plano.controller;
 import com.Beetles.systempayout.backend.plano.controller.request.PlanoRequest;
 import com.Beetles.systempayout.backend.plano.controller.response.PlanoResponse;
 import com.Beetles.systempayout.backend.plano.service.PlanosService;
+import io.github.resilience4j.ratelimiter.annotation.RateLimiter;
 import jakarta.validation.Valid;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -15,6 +16,7 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping("/plano")
+@RateLimiter(name = "planoRateLimiter", fallbackMethod = "rateLimiterResponse")
 public class PlanoController {
 
     private final PlanosService service;
@@ -55,5 +57,9 @@ public class PlanoController {
     public ResponseEntity<Void> apagarPlano(@PathVariable UUID id){
         service.deletarPlano(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    public ResponseEntity<String> rateLimiterResponse(){
+        return ResponseEntity.ok("Muitas requisições, espere um momento e tente novamente");
     }
 }

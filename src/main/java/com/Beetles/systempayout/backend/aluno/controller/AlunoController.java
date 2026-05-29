@@ -3,6 +3,7 @@ package com.Beetles.systempayout.backend.aluno.controller;
 import com.Beetles.systempayout.backend.aluno.controller.request.AlunoRequest;
 import com.Beetles.systempayout.backend.aluno.controller.response.AlunoResponse;
 import com.Beetles.systempayout.backend.aluno.service.AlunoService;
+import io.github.resilience4j.ratelimiter.annotation.RateLimiter;
 import jakarta.validation.Valid;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -16,6 +17,7 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping("aluno")
+@RateLimiter(name = "alunoRateLimiter", fallbackMethod = "rateLimiterResponse")
 public class AlunoController {
     private final AlunoService service;
 
@@ -60,4 +62,8 @@ public class AlunoController {
             service.deleteUserById(id);
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
+
+    public ResponseEntity<String> rateLimiterResponse(){
+        return ResponseEntity.ok("Muitas requisições, espere um momento e tente novamente");
+    }
 }

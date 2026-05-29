@@ -10,7 +10,7 @@ FROM eclipse-temurin:17-jre
 
 WORKDIR /app
 
-COPY --from=build /app/target/*.jar app/target/SystemPayout.jar
+COPY --from=build /app/target/SystemPayout-3.5.13.jar app/target/SystemPayout-3.5.13.jar
 
 EXPOSE 8080
 

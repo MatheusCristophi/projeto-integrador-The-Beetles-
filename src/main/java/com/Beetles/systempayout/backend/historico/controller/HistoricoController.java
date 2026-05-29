@@ -3,6 +3,7 @@ package com.Beetles.systempayout.backend.historico.controller;
 import com.Beetles.systempayout.backend.historico.controller.Request.HistoricoRequest;
 import com.Beetles.systempayout.backend.historico.controller.Response.HistoricoResponse;
 import com.Beetles.systempayout.backend.historico.service.HistoricoService;
+import io.github.resilience4j.ratelimiter.annotation.RateLimiter;
 import jakarta.validation.Valid;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -17,6 +18,8 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping("/historico")
+
+@RateLimiter(name = "historicoRateLimiter", fallbackMethod = "rateLimiterResponse")
 public class HistoricoController {
     private final HistoricoService service;
 
@@ -67,5 +70,9 @@ public class HistoricoController {
     public ResponseEntity<Void> apagarPagamento(@PathVariable UUID id){
         service.deletarPagamentoId(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    public ResponseEntity<String> rateLimiterResponse(){
+        return ResponseEntity.ok("Muitas requisições, espere um momento e tente novamente");
     }
 }

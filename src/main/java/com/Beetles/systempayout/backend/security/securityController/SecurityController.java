@@ -9,6 +9,7 @@ import com.Beetles.systempayout.backend.security.securityController.request.Logi
 import com.Beetles.systempayout.backend.security.securityController.response.LoginResponse;
 import com.Beetles.systempayout.backend.security.securityService.SecurityService;
 import com.Beetles.systempayout.backend.security.tokenService.TokenService;
+import io.github.resilience4j.ratelimiter.annotation.RateLimiter;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.http.HttpStatus;
@@ -26,6 +27,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/auth")
+@RateLimiter(name = "securityRateLimiter", fallbackMethod = "rateLimiterResponse")
 public class SecurityController {
     private final AdminService adminService;
     private final SecurityService securityService;
@@ -60,5 +62,9 @@ public class SecurityController {
         var userDetails = (UserDetails) auth.getPrincipal();
         var token = tokenService.generateToken(userDetails);
         return ResponseEntity.ok(new LoginResponse(token));
+    }
+
+    public ResponseEntity<String> rateLimiterResponse(){
+        return ResponseEntity.ok("Muitas requisições, espere um momento e tente novamente");
     }
 }

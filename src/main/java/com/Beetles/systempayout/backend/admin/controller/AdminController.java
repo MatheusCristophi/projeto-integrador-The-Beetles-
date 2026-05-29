@@ -2,6 +2,7 @@ package com.Beetles.systempayout.backend.admin.controller;
 
 import com.Beetles.systempayout.backend.admin.controller.response.AdminResponse;
 import com.Beetles.systempayout.backend.admin.service.AdminService;
+import io.github.resilience4j.ratelimiter.annotation.RateLimiter;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,6 +13,7 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping("admin")
+@RateLimiter(name = "adminRateLimiter", fallbackMethod = "rateLimiterResponse")
 public class AdminController {
     private final AdminService service;
 
@@ -31,5 +33,9 @@ public class AdminController {
     public ResponseEntity<Void> delete(@PathVariable UUID id){
         service.deletarAdmin(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    public ResponseEntity<String> rateLimiterResponse(){
+        return ResponseEntity.ok("Muitas requisições, espere um momento e tente novamente");
     }
 }
