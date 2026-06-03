@@ -4,7 +4,6 @@ html, body {
 
 body {
     width: 100%;
-    background-color: white;
     color: white;
 
     display: flex;
@@ -26,7 +25,7 @@ h2 {
 }
 
 .main {
-    width: 80%;
+    width: 70%;
     gap: 4%;
 }
 
