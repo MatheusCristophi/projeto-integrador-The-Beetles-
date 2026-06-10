@@ -20,6 +20,20 @@ button:hover {
     height: 8vh;
 }
 
+#nav-login{
+     margin-left: auto;
+
+    display: flex;
+    align-items: center;
+    justify-content: right;
+    background-color: rgb(13, 13, 204);
+    border-radius: 8px;
+}
+
+#nav-login:hover{
+    background-color: #080535;
+    cursor: pointer;
+}
 .login-nav {
     display: flex;
 }

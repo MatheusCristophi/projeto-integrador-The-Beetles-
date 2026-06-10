@@ -42,23 +42,30 @@ footer {
     justify-content: center;
 }
 
+#abatopo > img{
+    justify-content: left;
+}
+
 #abatopo {
-    padding: 3%;
-    width: 100%;
+    padding: 1%;
+    width: 96%;
     height: 10vh;
     background-color: #0f0f0f;
 
     display: flex;
+    justify-self: center;
+    margin: 10px 20px 0px;
     align-items: center;
-    justify-content: space-around;
 
-    position: sticky;
+    position: fixed;
     top: 0;
 }
 
 .sublinks {
     display: flex;
+    list-style: none;
     gap: 2vh;
+    width: 100%;
 }
 
 #btnInstagram {
