@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The Beetles</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
     <link rel="preload" as="image" href="elements/logo-beetles.png">
     <link rel="preload" as="image" href="elements/bg-n1.png">
     <link rel="preload" as="image" href="elements/logo-instagram.png">
@@ -14,7 +15,7 @@
     <link rel="stylesheet" href="css/index/style.css">
 </head>
 
-<body>
+<body class="homepage">
     <header id="abatopo">
         <img src="elements/logo-beetles.png" alt="Logo da Academia">
         <nav id="navbar">
@@ -29,26 +30,108 @@
         </nav>
     </header>
     <section id="sobre">
-        <h2 id="sobre-h2">Encontre a melhor versão de Si</h2>
-        <p>Somos uma academia comprometida em promover saúde, bem-estar e qualidade de vida para pessoas de 
-            todas as idades e níveis de condicionamento físico. Nosso objetivo é oferecer um ambiente acolhedor, 
-            motivador e seguro, onde cada aluno possa desenvolver hábitos mais saudáveis e alcançar suas metas pessoais. 
-            Contamos com uma estrutura preparada para diferentes modalidades de treino, além de profissionais qualificados 
-            para orientar e acompanhar os praticantes em sua jornada. Acreditamos que a prática regular de atividades 
-            físicas vai além da estética, contribuindo para a melhora da disposição, da autoestima e da saúde física e 
-            mental.
-        </p>
+        <h2 id="sobre-h2">
+    FORGE SUA <span>MELHOR VERSÃO</span>
+</h2>
+
+<p>
+    Equipamentos modernos, profissionais qualificados e uma comunidade que impulsiona sua evolução. Tudo o que você precisa para alcançar sua melhor versão na melhor academia da região.
+</p>
+
+<a href="#planos" id="matricula">
+    Quero me matricular
+</a>
     </section>
+ <section id="modalidades" class="container py-5">
+
+  
+  <div class="text-center mb-5">
+    <h2 class="display-2 fw-bold text-uppercase">
+      Nossas <span class="text-primary">Modalidades</span>
+    </h2>
+
+    <p class="text-secondary fs-5 mt-3">
+      O treino ideal para cada fase do seu objetivo.
+    </p>
+  </div>
+
+  
+  <div class="row g-4">
+
+    <div class="col-md-6 col-lg-3">
+      <div class="modalidade-card">
+        <img src="elements/musculação.png" alt="">
+        <div class="overlay">
+          <h3>MUSCULAÇÃO</h3>
+          <p>Equipamentos modernos para hipertrofia.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-6 col-lg-3">
+      <div class="modalidade-card">
+        <img src="elements/cardio.png" alt="">
+        <div class="overlay">
+          <h3>CARDIO</h3>
+          <p>Esteiras, escadas e elípticos.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-6 col-lg-3">
+      <div class="modalidade-card">
+        <img src="elements/personaltrainer.png" alt="">
+        <div class="overlay">
+          <h3>PERSONAL</h3>
+          <p>Acompanhamento exclusivo.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-6 col-lg-3">
+      <div class="modalidade-card">
+        <img src="elements/zumba.png" alt="">
+        <div class="overlay">
+          <h3>ZUMBA</h3>
+          <p>Queima calórica intensa.</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+</section>
+ <section id="midia">
+
+    <h2 id="midia-h2">
+        CENTRO <span>DE TREINAMENTO</span>
+    </h2>
+
+    <p id="midia-desc">
+        Conheça nossa estrutura, equipamentos e ambiente de treino.
+    </p>
+
+    <div id="conteiner-midia">
+
+        <img src="elements/fundo-banner.png" alt="">
+        <img src="elements/fundo-banner.png" alt="">
+        <img src="elements/fundo-banner.png" alt="">
+  
+
+    </div>
+
+</section>
+<h2 id="planos-h2">NOSSOS PLANOS</h2>
     <section id="planos">
-        <h2>Planos</h2>
         <article class="opções">
             <h3>Plano 1</h3>
             <ul>
                 <p>Quantidade de aulas</p>
                 <p>Categorias</p>
                 <p>Informação extra</p>
+                <span id="valor-plano">R$XXX</span>
             </ul>
-            <button><a href="">Conferir</a></button>
+            <button><a href="" class="btn-plano">Assinar agora</a></button>
         </article>
         <article class="opções">
             <h3>Plano 2</h3>
@@ -56,8 +139,9 @@
                 <p>Quantidade de aulas</p>
                 <p>Categorias</p>
                 <p>Informação extra</p>
+                <span id="valor-plano">R$XXX</span>
             </ul>
-            <button><a href="">Conferir</a></button>
+            <button><a href="" class="btn-plano">Assinar agora</a></button>
         </article>
         <article class="opções">
             <h3>Plano 3</h3>
@@ -65,16 +149,12 @@
                 <p>Quantidade de aulas</p>
                 <p>Categorias</p>
                 <p>Informação extra</p>
+                <span id="valor-plano">R$XXX</span>
             </ul>
-            <button><a href="">Conferir</a></button>
+            <button><a href="" class="btn-plano">Assinar agora</a></button>
         </article>
     </section>
-    <section id="midia">
-        <h2>Galeria</h2>
-        <div id="conteiner-midia">
-            <p>Não há nada para ver aqui...</p>
-        </div>
-    </section>
+   
     <footer>
         <p>© The Beetles - 2026 - Todos os direitos reservados</p>
     </footer>
@@ -86,6 +166,7 @@
             <img id="logoWhatsapp" src="elements/logo-whatsapp.png" alt="whatsapp">
         </btn>
     </section>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </body>
 
 </html>
