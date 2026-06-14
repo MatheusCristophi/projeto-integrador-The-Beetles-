@@ -5,13 +5,11 @@ import org.springframework.http.ProblemDetail;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler{
-
     @ExceptionHandler(AccessDeniedException.class)
     public ProblemDetail handleAccessDenied(AccessDeniedException ex) {
         ProblemDetail problemDetail =  ProblemDetail.forStatusAndDetail(
@@ -82,4 +80,17 @@ public class GlobalExceptionHandler{
         problemDetail.setType(java.net.URI.create("about:blank"));
         return problemDetail;
     }
+
+    @ExceptionHandler(BadCredentialsException.class)
+    public ProblemDetail handleBadCredentials(BadCredentialsException ex) {
+        ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(
+                HttpStatus.UNAUTHORIZED,
+                "Email ou senha incorretos."
+        );
+
+        problemDetail.setInstance(null);
+        problemDetail.setType(java.net.URI.create("about:blank"));
+        return problemDetail;
+    }
+
 }
