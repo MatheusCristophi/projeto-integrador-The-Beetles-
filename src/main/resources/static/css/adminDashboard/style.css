@@ -18,9 +18,10 @@ body {
     justify-content: space-between;
     align-items: center;
 
-    padding: 1rem 5%;
+    width: 100%;
+    height: 10vh;
 
-    background-color: rgba(0, 0, 0, 0.9);
+    background-color: #0f0f0f;
     border-bottom: 1px solid rgba(0, 102, 255, 0.3);
 
     position: sticky;
@@ -28,14 +29,20 @@ body {
     z-index: 100;
 }
 
+#logo {
+    height: 10vh;
+}
+
 #abatopo img {
-    height: 70px;
+    height: 10vh;
+    padding-left: 2vh;
 }
 
 .sublinks {
     display: flex;
     gap: 2rem;
     list-style: none;
+    padding-right: 4vh;
 }
 
 .sublinks a {

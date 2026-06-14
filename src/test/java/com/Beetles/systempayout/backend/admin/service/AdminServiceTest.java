@@ -1,104 +1,83 @@
 package com.Beetles.systempayout.backend.admin.service;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.when;
-
+import com.Beetles.systempayout.backend.admin.controller.request.AdminRequest;
+import com.Beetles.systempayout.backend.admin.controller.response.AdminResponse;
+import com.Beetles.systempayout.backend.admin.model.Admin;
+import com.Beetles.systempayout.backend.admin.repository.AdminRepository;
+import com.Beetles.systempayout.backend.shared.enums.Enums_roles;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.test.context.ActiveProfiles;
-
-import com.Beetles.systempayout.backend.admin.controller.request.AdminRequest;
-import com.Beetles.systempayout.backend.admin.model.Admin;
-import com.Beetles.systempayout.backend.admin.repository.AdminRepository;
-import com.Beetles.systempayout.backend.shared.enums.Enums_roles;
 
 import java.util.Optional;
+import java.util.UUID;
 
-@ActiveProfiles("test")
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+
 @ExtendWith(MockitoExtension.class)
-public class AdminServiceTest {
-    
-    @Mock
-    AdminRepository adminRepository;
+class AdminServiceTest {
 
-    @Mock
-    PasswordEncoder passwordEncoder;
-    
     @InjectMocks
-    AdminService adminService;
+    private AdminService service;
+
+    @Mock
+    private AdminRepository repository;
+
+    @Mock
+    private PasswordEncoder encoder;
 
     @Test
-    void Registrar_admin_quando_a_solicitacao_e_um_sucesso() {
-        AdminRequest request = new AdminRequest(
-            "matheus", 
-            "matheuscr909@gmail.com", 
-            "matheus");
+    public void deveRegistrarUmAdministradorCorretamente() {
+        AdminRequest adminRequest =
+                new AdminRequest(
+                "Matheus",
+                "matheus@gmail.com",
+                "matheus1"
+                );
 
-        Admin admin = new Admin(
-            request.nome(),
-            request.email(),
-            request.senha(),
-            Enums_roles.ADMIN);
+        when(encoder.encode("matheus1")).thenReturn("senhaCriptografada");
 
-        when(passwordEncoder.encode(request.senha())).thenReturn("matheus");
-        when(adminRepository.save(any(Admin.class))).thenReturn(admin);
+        when(repository.save(any(Admin.class)))
+                .thenAnswer(invocation -> {
+                    Admin admin = invocation.getArgument(0);
 
-        Admin result = adminService.registrar(request);
+                    admin.setAdminId(UUID.randomUUID());
+                    admin.setRole(Enums_roles.ADMIN);
 
-        assertNotNull(result);
-        assertEquals(admin.getAdminId(), result.getAdminId());
-        assertEquals("matheus", result.getNome());
-        assertEquals("matheuscr909@gmail.com", result.getEmail());
-        assertEquals("matheus", result.getSenha());
-        assertEquals(Enums_roles.ADMIN, result.getRole());
+                    return admin;
+                });
+
+        Admin adm = service.registrar(adminRequest);
+
+        assertNotNull(adm.getAdminId());
+        assertEquals("Matheus", adm.getNome());
+        assertEquals("matheus@gmail.com", adm.getEmail());
+        assertEquals("senhaCriptografada", adm.getSenha());
+        assertEquals(Enums_roles.ADMIN, adm.getRole());
     }
 
     @Test
-    void testDeletarAdmin() {
-        AdminRequest request = new AdminRequest(
-                "matheus",
-                "matheuscr909@gmail.com",
-                "matheus"
-        );
-        Admin admin = new Admin(
-                request.nome(),
-                request.email(),
-                request.senha(),
-                Enums_roles.ADMIN
-        );
+    void Deve_Retornar_Um_Administrador_Pelo_Email() {
+        Admin admin = new Admin();
+        admin.setEmail("matheus@gmail.com");
 
-        var ad = adminRepository.save(admin);
+        when(repository.findByEmail("matheus@gmail.com"))
+                .thenReturn(Optional.of(admin));
 
-        adminRepository.deleteById(admin.getAdminId());
+        AdminResponse resultado = service.buscarPorEmail("matheus@gmail.com");
 
-        assertNull(ad);
+        assertEquals("matheus@gmail.com", resultado.email());
+
+        verify(repository).findByEmail("matheus@gmail.com");
     }
 
     @Test
-    void Buscar_por_email_quando_for_um_sucesso() {
-        AdminRequest request = new AdminRequest(
-            "matheus",
-            "matheuscr909@gmail.com",
-            "matheus"
-        );
-        Admin admin = new Admin(
-            request.nome(),
-            request.email(),
-            request.senha(),
-            Enums_roles.ADMIN
-        );
-
-        when(adminRepository.findByEmail(request.email())).thenReturn(Optional.of(admin));
-
-        var buscar = adminService.buscarPorEmail(admin.getEmail());
-
-        assertNotNull(admin);
-        assertNotNull(buscar);
-        assertEquals(admin.getEmail(), buscar.email());
+    void Deve_Deletar_Um_Administrador_Por_Id() {
     }
 }

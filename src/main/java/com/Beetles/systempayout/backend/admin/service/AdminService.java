@@ -37,13 +37,13 @@ public class AdminService{
     public AdminResponse buscarPorEmail(String email){
         return repository.findByEmail(email.toLowerCase())
             .map(AdminResponse::toAdminResponse)
-                .orElseThrow(()-> new EmailNotFoundException("Admin não encontrado."));
+                .orElseThrow(()-> new EmailNotFoundException(email));
     }
 
     @Transactional
     public void deletarAdmin(UUID id){
         if (!repository.existsById(id)) {
-            throw new IdNotFoundException("Admin não encontrado.");
+            throw new IdNotFoundException(id);
         }
         repository.deleteById(id);
     }

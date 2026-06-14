@@ -19,46 +19,42 @@ body {
 /* HEADER */
 
 #abatopo {
+    width: 100%;
+    height: 10vh;
+    background-color: #0f0f0f;
+    padding-left: 2vh;
     display: flex;
+    justify-content: flex-start;
     align-items: center;
+    
+    position: sticky;
+    top: 0;
+    z-index: 999;
+}
 
-    padding: 1rem 5%;
-
-    background: rgba(0, 0, 0, 0.9);
-
-    border-bottom: 1px solid rgba(0, 102, 255, 0.3);
+#abatopo a {
+    height: 10vh;
 }
 
 #abatopo img {
-    height: 70px;
+    height: 10vh;
 }
 
 /* CONTAINER */
 
 #container {
-    width: min(1200px, 90%);
+    width: min(120vh, 90%);
 
-    margin: 3rem auto;
+    margin: 10vh;
 
     display: flex;
+    flex-direction: column;
     justify-content: center;
+    justify-self: center;
     align-items: center;
     gap: 4rem;
 
     position: relative;
-}
-
-/* IMAGEM */
-
-#background {
-    width: 450px;
-    max-width: 100%;
-
-    border-radius: 25px;
-
-    box-shadow: 0 0 35px rgba(0, 102, 255, 0.25);
-
-    object-fit: cover;
 }
 
 /* CARD */
@@ -100,7 +96,7 @@ body {
     border-radius: 999px;
 }
 
-/* FORMULÁRIO */
+/* FORMULÃRIO */
 
 form {
     display: flex;
@@ -171,11 +167,13 @@ form input[type="password"]:focus {
 
     text-align: center;
 
-    margin-top: 2rem;
+    margin-top: 1vh;
 
     color: rgba(255, 255, 255, 0.8);
 
     text-decoration: none;
+
+    color: inherit;
 }
 
 #contatos {
@@ -184,13 +182,13 @@ form input[type="password"]:focus {
 
     gap: 1rem;
 
-    margin-top: 1.5rem;
+    margin-top: 0.4vh;
 }
 
 #contatos button {
     display: flex;
     align-items: center;
-    gap: 0.8rem;
+    gap: 0.5vh;
 
     padding: 0.8rem 1.2rem;
 
@@ -227,12 +225,7 @@ form input[type="password"]:focus {
     #container {
         flex-direction: column;
 
-        margin: 2rem auto;
-    }
-
-    #background {
-        width: 100%;
-        max-width: 500px;
+        margin: 1vh auto;
     }
 
     #card-login {

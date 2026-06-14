@@ -23,7 +23,7 @@ public class SecurityService implements UserDetailsService {
 
     public String alterarSenha(AlterarSenhaRequest request){
         var admin = adminRepository.findByEmail(request.email().toLowerCase())
-            .orElseThrow(() -> new EmailNotFoundException("Email não encontrado."));
+            .orElseThrow(() -> new EmailNotFoundException(request.email()));
 
         admin.setSenha(encoder.encode(request.senha()));
         adminRepository.save(admin);

@@ -7,6 +7,7 @@ import com.Beetles.systempayout.backend.historico.controller.Response.HistoricoR
 import com.Beetles.systempayout.backend.historico.model.Historico;
 import com.Beetles.systempayout.backend.historico.repository.HistoricoRepository;
 import com.Beetles.systempayout.backend.shared.exception.IdNotFoundException;
+import com.Beetles.systempayout.backend.shared.exception.PaymentNotMadeException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -29,7 +30,7 @@ public class HistoricoService {
     @Transactional
     public Historico salvarHistorico(HistoricoRequest request) {
         Aluno aluno = alunoRepository.findById(request.alunoId())
-                .orElseThrow(() -> new IdNotFoundException("Usuário não encontrado."));
+                .orElseThrow(() -> new IdNotFoundException(request.alunoId()));
 
         Historico historico = new Historico();
         historico.setAluno(aluno);
@@ -48,13 +49,13 @@ public class HistoricoService {
     public HistoricoResponse verHistoricoId(UUID id){
         return repository.findById(id)
                 .map(HistoricoResponse::toHistoricoResponse)
-                .orElseThrow(()-> new IdNotFoundException("Usuário não encontrado."));
+                .orElseThrow(()-> new IdNotFoundException(id));
     }
 
     @Transactional
     public Historico registrarDataDeConfirmacao(UUID id){
         Historico historico = repository.findById(id)
-                .orElseThrow(()-> new IdNotFoundException("Pagamento não encontrado."));
+                .orElseThrow(()-> new IdNotFoundException(id));
         historico.dataConfirmation();
         repository.save(historico);
         return historico;
@@ -70,7 +71,7 @@ public class HistoricoService {
     @Transactional
     public void deletarPagamentoId (UUID id){
         if(!repository.existsById(id)){
-            throw new RuntimeException("Pagamento não encontrado.");
+            throw new PaymentNotMadeException(id);
         }
         repository.deleteById(id);
 

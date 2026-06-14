@@ -19,19 +19,21 @@ body {
 /* HEADER */
 
 #abatopo {
+    width: 100%;
+    height: 10vh;
+    background-color: #0f0f0f;
+    padding: 15px;
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-start;
     align-items: center;
-
-    padding: 1rem 5%;
-
-    background: rgba(0, 0, 0, 0.9);
-
-    border-bottom: 1px solid rgba(0, 102, 255, 0.3);
+    
+    position: sticky;
+    top: 0;
+    z-index: 999;
 }
 
 #abatopo img {
-    height: 70px;
+    height: 10vh;
 }
 
 .sublinks {

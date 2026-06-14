@@ -41,7 +41,7 @@ public class AlunoService{
     public AlunoResponse listUserById(UUID id) {
         return repository.findById(id)
                 .map(AlunoResponse::toAlunoResponse)
-                .orElseThrow(()-> new IdNotFoundException("Usuário não encontrado."));
+                .orElseThrow(()-> new IdNotFoundException(id));
     }
 
     @Transactional
@@ -50,7 +50,7 @@ public class AlunoService{
         Plano plano = null;
         if (request.plano() != null) {
             plano = planoRepository.findById(request.plano())
-                    .orElseThrow(() -> new IdNotFoundException("Plano não encontrado."));
+                    .orElseThrow(() -> new IdNotFoundException(request.plano()));
         }
 
 
@@ -71,7 +71,7 @@ public class AlunoService{
     @Transactional
     public void deleteUserById(UUID id) {
         if (!repository.existsById(id)) {
-            throw new IdNotFoundException("Usuário não encontrado.");
+            throw new IdNotFoundException(id);
         }
         historicoRepository.deleteByAlunoAlunoId(id);
         repository.deleteById(id);
@@ -80,10 +80,10 @@ public class AlunoService{
     @Transactional
     public Aluno updateUser(UUID id, AlunoRequest request) {
         Aluno aluno = repository.findById(id)
-            .orElseThrow(() -> new IdNotFoundException("Usuário não encontrado."));
+            .orElseThrow(() -> new IdNotFoundException(id));
 
         Plano plano = planoRepository.findById(request.plano())
-                .orElseThrow(() -> new IdNotFoundException("Plano não encontrado."));
+                .orElseThrow(() -> new IdNotFoundException(id));
 
         if (request.nome() != null) {
             aluno.setNome(request.nome());

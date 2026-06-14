@@ -16,23 +16,32 @@ body {
 
 /* Header - Idêntico ao Dashboard */
 #abatopo {
-    background-color: #060606;
+    width: 100%;
+    height: 10vh;
+    background-color: #0f0f0f;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 20px 50px;
-    border-bottom: 1px solid #111111;
+    
+    position: sticky;
+    top: 0;
+    z-index: 999;
+}
+
+#logo {
+    height: 10vh;
+    padding-left: 2vh;
 }
 
 #abatopo img {
-    height: 35px; /* Ajuste conforme o tamanho original da logo */
-    display: block;
+    height: 10vh;
 }
 
 #navbar .sublinks {
     list-style: none;
     display: flex;
     gap: 25px;
+    padding-right: 4vh;
 }
 
 #navbar .sublinks a {
