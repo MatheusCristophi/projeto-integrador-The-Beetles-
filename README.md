@@ -31,6 +31,7 @@ O **System Payout** é uma aplicação web full-stack para controle financeiro e
 
 ---
 
+
 ## 🏗️ Arquitetura
 
 O projeto segue uma arquitetura em camadas por domínio de negócio:
@@ -165,6 +166,19 @@ A aplicação estará disponível em `http://localhost:8080`.
 ```
 
 Os testes utilizam o banco H2 em memória (perfil `test`).
+
+Para criar um usuário é necessário o uso de um testador de API como Insomnia/Postman para enviar a requisição de registro com o Body:
+
+```
+{
+  "nome": "matheus"
+  "email": "email@gmail.com"
+  "senha": "senhaaleatória"
+}
+```
+
+No endpoint: /auth/admin/register
+
 
 ---
 
